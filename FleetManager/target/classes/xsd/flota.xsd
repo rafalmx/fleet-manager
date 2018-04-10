@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--Created with Liquid XML Studio 6.1.18.0 - FREE Community Edition (http://www.liquid-technologies.com)-->
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="Pojazd">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="marka">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="64" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="1" maxOccurs="1" name="model">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="64" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="typ" type="TypPojazdu" />
+      <xs:element minOccurs="1" maxOccurs="1" name="VIN">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="64" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="lakier" type="TypLakieru" />
+      <xs:element name="silnik" type="Silnik" />
+      <xs:element name="wyposazenie" type="PozycjeWyposazenia" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TypPojazdu">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="typ_nadwozia">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="hatchback" />
+            <xs:enumeration value="combi" />
+            <xs:enumeration value="sedan" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="przeznaczenie">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="osobowy" />
+            <xs:enumeration value="ciężarowy" />
+            <xs:enumeration value="rolniczy" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TypLakieru">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="kolor" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute default="N" name="czy_metalik" use="optional">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="1" />
+          <xs:enumeration value="T" />
+          <xs:enumeration value="N" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="Silnik">
+    <xs:sequence>
+      <xs:element name="typ">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="benzyna" />
+            <xs:enumeration value="diesel" />
+            <xs:enumeration value="hybryda" />
+            <xs:enumeration value="elektryk" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="pojemnosc" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="moc" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PozycjaWyposazenia">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="opis">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="128" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="1" maxOccurs="1" name="wartosc" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PozycjeWyposazenia">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="dodatki" type="PozycjaWyposazenia" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Kierowca">
+    <xs:sequence>
+      <xs:element name="imie" type="xs:string" />
+      <xs:element name="nazwisko" type="xs:string" />
+      <xs:element name="pesel" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="KierowcyPojazdy">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="pojazd" type="Pojazd" />
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="kierowcy" type="Kierowca" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Flota">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="pozycja" type="KierowcyPojazdy" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="flota" type="Flota" />
+</xs:schema>

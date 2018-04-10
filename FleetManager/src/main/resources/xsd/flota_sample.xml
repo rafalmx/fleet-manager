@@ -1,0 +1,38 @@
+<flota>
+  <!--1 or more repetitions:-->
+  <pozycja>
+    <!--1 or more repetitions:-->
+    <pojazd>
+      <marka>stringstringstringstringstringstringstringstringstringstringstri</marka>
+      <model>stringstringstringstringstringstringstringstringstringstringstri</model>
+      <typ>
+        <typ_nadwozia>hatchback</typ_nadwozia>
+        <!--Optional:-->
+        <przeznaczenie>ciężarowy</przeznaczenie>
+      </typ>
+      <VIN>stringstringstringstringstringstringstringstringstringstringstri</VIN>
+      <lakier czy_metalik="N">
+        <kolor>string</kolor>
+      </lakier>
+      <silnik>
+        <typ>diesel</typ>
+        <!--Optional:-->
+        <pojemnosc>3</pojemnosc>
+        <moc>3</moc>
+      </silnik>
+      <wyposazenie>
+        <!--Zero or more repetitions:-->
+        <dodatki>
+          <opis>stringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringst</opis>
+          <wartosc>1000.00</wartosc>
+        </dodatki>
+      </wyposazenie>
+    </pojazd>
+    <!--1 or more repetitions:-->
+    <kierowcy>
+      <imie>string</imie>
+      <nazwisko>string</nazwisko>
+      <pesel>string</pesel>
+    </kierowcy>
+  </pozycja>
+</flota>
