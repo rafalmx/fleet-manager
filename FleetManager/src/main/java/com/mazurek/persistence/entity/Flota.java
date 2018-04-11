@@ -8,7 +8,7 @@ import java.util.List;
 @Table(name = "FLOTA")
 public class Flota extends AbstractEntity {
 
-    @OneToMany//(cascade= CascadeType.ALL)
+    @OneToMany
     @JoinColumn(name = "FLOTA_ID", referencedColumnName = "ID")
     private List<Pozycja> pozycje = new ArrayList<>();
 

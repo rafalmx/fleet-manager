@@ -19,23 +19,22 @@ public class FleetReportValidator {
     public boolean isReportValid(String path) {
         Source xmlFile = null;
         try {
-            URL schemaFile = CLASS_LOADER.getResource("xsd/flota.xsd");
-
             xmlFile = new StreamSource(new File(path));
-
-            SchemaFactory schemaFactory = SchemaFactory
-                    .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-
-            Schema schema = schemaFactory.newSchema(schemaFile);
-            Validator validator = schema.newValidator();
+            Validator validator = getSchema().newValidator();
             validator.validate(xmlFile);
             System.out.println(xmlFile.getSystemId() + " is valid");
-        } catch (SAXException e) {
+        } catch (Exception e) {
             System.out.println(xmlFile.getSystemId() + " is NOT valid reason:" + e);
-            return false;
-        } catch (IOException e) {
             return false;
         }
         return true;
+    }
+
+    public static Schema getSchema() throws SAXException {
+        URL schemaFile = CLASS_LOADER.getResource("xsd/flota.xsd");
+        SchemaFactory schemaFactory = SchemaFactory
+                .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+
+        return schemaFactory.newSchema(schemaFile);
     }
 }

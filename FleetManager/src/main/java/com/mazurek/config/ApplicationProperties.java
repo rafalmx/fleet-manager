@@ -39,5 +39,7 @@ public class ApplicationProperties {
         return properties.getProperty(property);
     }
 
-
+    public Properties getProperties() {
+        return properties;
+    }
 }

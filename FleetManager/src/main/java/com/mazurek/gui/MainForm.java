@@ -1,17 +1,11 @@
 package com.mazurek.gui;
 
 import com.mazurek.controller.ButtonActionController;
-import com.mazurek.generated.Flota;
-import com.mazurek.service.FleetService;
-import com.mazurek.utils.FleetReportValidator;
-import com.mazurek.service.impl.FleetServiceImpl;
-import com.mazurek.utils.FleetMapper;
-import com.mazurek.utils.FleetProperties;
-import com.mazurek.service.impl.XmlFleetReportGeneratorImpl;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 public class MainForm {
     private JButton button1;
@@ -22,6 +16,9 @@ public class MainForm {
     private JTextField textField1;
     private JTextField textField2;
     private JTextField textField3;
+    private JButton button2;
+    private JCheckBox checkBox1;
+    private JFileChooser fileChooser;
 
     private ButtonActionController buttonActionController = new ButtonActionController();
 
@@ -43,9 +40,26 @@ public class MainForm {
                     JOptionPane.showMessageDialog(null, "Input values are not correct");
                     return;
                 }
-                buttonActionController.generateXmlButton(positionCount, carCount, driverCount);
+                buttonActionController.handleGenerateXmlButton(positionCount, carCount, driverCount);
             }
         });
+
+        button2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+                int result = fileChooser.showOpenDialog(mainPanel);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = fileChooser.getSelectedFile();
+                    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+                    boolean isValidationEnabled = checkBox1.isEnabled();
+
+                    buttonActionController.handleLoadXMLButton(selectedFile, isValidationEnabled);
+                }
+            }
+        });
+
+
     }
 
     public static void main(String[] args) {
